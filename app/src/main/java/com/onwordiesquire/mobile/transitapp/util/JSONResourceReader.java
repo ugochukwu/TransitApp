@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onwordiesquire.mobile.transitapp.data.model.ProviderAttributes;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -65,7 +66,12 @@ public class JSONResourceReader {
      * @return An object of type T, with member fields populated using Gson.
      */
     public <T> T constructUsingGson(Class<T> type) {
-        Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateDeserializer()).create();
+        Gson gson = new GsonBuilder().
+                registerTypeAdapter(Date.class, new DateDeserializer())
+                .registerTypeAdapterFactory(TransitAdapterFactory.create())
+                .registerTypeAdapter(ProviderAttributes.class, new ProviderAttributesTypeAdapter())
+                .create();
+
         return gson.fromJson(jsonString, type);
     }
 }

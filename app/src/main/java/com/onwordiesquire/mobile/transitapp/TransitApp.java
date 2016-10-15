@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.onwordiesquire.mobile.transitapp.injection.component.AppComponent;
 
+import timber.log.Timber;
+
 /**
  * Created by michelonwordi on 10/15/16.
  */
@@ -26,6 +28,9 @@ public class TransitApp extends Application {
         super.onCreate();
 
         appComponent = AppComponent.Initializer.init(this);
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     public static AppComponent appComponent()

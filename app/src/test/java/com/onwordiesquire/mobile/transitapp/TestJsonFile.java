@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.onwordiesquire.mobile.transitapp.data.model.AvailableRoutes;
 import com.onwordiesquire.mobile.transitapp.data.model.Provider;
 import com.onwordiesquire.mobile.transitapp.data.model.ProviderAttributes;
+import com.onwordiesquire.mobile.transitapp.test.common.Utils;
 import com.onwordiesquire.mobile.transitapp.util.ProviderAttributesTypeAdapter;
 import com.onwordiesquire.mobile.transitapp.util.TransitAdapterFactory;
 
@@ -24,24 +25,18 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class TestJsonFile {
-    private static final String ASSET_BASE_PATH = "../app/src/test/resources/";
     private Gson gson;
 
     @Before
-    public void setup()
-    {
-        //arrange
-        gson = new GsonBuilder()
-                .registerTypeAdapterFactory(TransitAdapterFactory.create())
-                .registerTypeAdapter(ProviderAttributes.class, new ProviderAttributesTypeAdapter())
-                .create();
+    public void setup() {
+        gson = Utils.setupGson();
     }
 
     @Test
     public void parseJson_isCorrect() throws Exception {
 
         //act
-        AvailableRoutes routesData = gson.fromJson(readJsonFile("data.json"),
+        AvailableRoutes routesData = gson.fromJson(Utils.readJsonFile("data.json"),
                 AvailableRoutes.class);
 
         String type = routesData.routes().get(0).type();
@@ -54,28 +49,18 @@ public class TestJsonFile {
     }
 
     @Test
-    public void TestProvidersCorrectlyParsed() throws Exception{
+    public void TestProvidersCorrectlyParsed() throws Exception {
         //act
-        AvailableRoutes routesData = gson.fromJson(readJsonFile("data.json"),
+        AvailableRoutes routesData = gson.fromJson(Utils.readJsonFile("data.json"),
                 AvailableRoutes.class);
 
         Provider vbb = routesData.providerData().providers().get(0);
 
         //assert
-        assertEquals("vbb",vbb.providerName());
+        assertEquals("vbb", vbb.providerName());
 
     }
 
 
-    private String readJsonFile(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(ASSET_BASE_PATH + filename)));
-        StringBuilder sb = new StringBuilder();
-        String line = br.readLine();
-        while (line != null) {
-            sb.append(line);
-            line = br.readLine();
-        }
 
-        return sb.toString();
-    }
 }
