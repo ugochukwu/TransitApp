@@ -13,6 +13,8 @@ import com.google.gson.annotations.SerializedName;
 @AutoValue
 public abstract class Provider {
 
+    public abstract String providerName();
+
     @SerializedName("display_name")
     @Nullable
     public abstract String displayName();
@@ -43,6 +45,8 @@ public abstract class Provider {
 
     @AutoValue.Builder
     public abstract static class Builder {
+        public abstract Builder setProviderName(String providerName);
+
         public abstract Builder setDisplayName(String displayName);
 
         public abstract Builder setiosItunesUrl(String iOSItunesUrl);

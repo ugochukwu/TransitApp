@@ -47,11 +47,15 @@ public class ProviderAttributesTypeAdapter extends TypeAdapter<ProviderAttribute
     }
 
     private Provider processProviderObject(JsonReader in) throws IOException {
+        String providerName = "";
+
+        //if its a name then its the provider name and should be stored for later use
         if (in.peek() == JsonToken.NAME) {
-            Timber.i("Name of tag is " + in.nextName());
+            providerName = in.nextName();
+            Timber.i("Name of tag is " + providerName);
         }
         in.beginObject();
-        Provider.Builder providerBuilder = Provider.builder();
+        Provider.Builder providerBuilder = Provider.builder().setProviderName(providerName);
         while (in.hasNext()) {
             JsonToken token = in.peek();
             if (token == JsonToken.NAME) {
