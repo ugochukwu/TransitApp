@@ -4,23 +4,14 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
 import com.onwordiesquire.mobile.transitapp.data.model.Price;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 
-import net.danlew.android.joda.JodaTimeAndroid;
-
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeUtils;
-import org.joda.time.Hours;
 import org.joda.time.Minutes;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
