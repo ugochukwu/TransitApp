@@ -1,8 +1,12 @@
 package com.onwordiesquire.mobile.transitapp.data;
 
 import com.onwordiesquire.mobile.transitapp.data.model.AvailableRoutes;
+import com.onwordiesquire.mobile.transitapp.data.model.Route;
+import com.onwordiesquire.mobile.transitapp.data.model.Segment;
+import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 import com.onwordiesquire.mobile.transitapp.data.source.JsonRoutesDataSource;
-import com.onwordiesquire.mobile.transitapp.util.JSONResourceReader;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,11 +29,11 @@ public class DataManager {
     }
 
 
-    public Observable<AvailableRoutes> getAvailableRoutes() {
+    public Observable<AvailableRoutes> loadRoutesData() {
         if (memoryCache == null) {
             Timber.i("Hit Disk");
 
-//            return jsonRoutesDataSource.getAvailableRoutes().
+//            return jsonRoutesDataSource.loadRoutesData().
 //                    flatMap(availableRoutes -> {
 //                        return Observable.just(availableRoutes).doOnNext(
 //                                availableRoutes1 -> {
@@ -38,8 +42,10 @@ public class DataManager {
 //                                }
 //                        );
 //                    });
-            return jsonRoutesDataSource.getAvailableRoutes().doOnNext(availableRoutes ->{ memoryCache = availableRoutes;
-            Timber.i("Store in cache");});
+            return jsonRoutesDataSource.getAvailableRoutes().doOnNext(availableRoutes -> {
+                memoryCache = availableRoutes;
+                Timber.i("Store in cache");
+            });
         } else {
             Timber.i("Hit Cache");
 
@@ -47,5 +53,59 @@ public class DataManager {
         }
     }
 
+    public Observable<Route> getAvailableRoutes() {
+        return loadRoutesData().flatMap(availableRoutes -> {
+            return Observable.from(availableRoutes.routes());
+        });
+    }
 
+
+    public Observable<Stop> getStartPoints() {
+
+        return loadRoutesData()
+                .flatMap(availableRoutes ->
+                {
+                    return Observable.from(availableRoutes.routes());
+                })
+                .flatMap(route -> {
+                    return Observable.from(route.segments()).first();
+                })
+                .map(segment -> {
+                    return segment.stops().get(0);
+                });
+
+
+    }
+
+    public Observable<Stop> getEndPoints() {
+        return loadRoutesData()
+                .flatMap(availableRoutes ->
+                {
+                    return Observable.from(availableRoutes.routes());
+                })
+                .flatMap(route -> {
+                    return Observable.from(route.segments()).last();
+                })
+                .map(segment -> {
+                    return segment.stops().get(segment.stops().size() - 1);
+                });
+
+    }
+
+    public Observable<Route> getAvailableRoutesForPoints(Stop start, Stop stop) {
+        return loadRoutesData().flatMap(availableRoutes -> {
+
+            return Observable.from(availableRoutes.routes());
+        }).filter(route -> {
+            return isStopFirst(route.segments(), start);
+        });
+    }
+
+    private boolean isStopFirst(List<Segment> segments, Stop stop) {
+        if (segments != null) {
+            return segments.get(0).stops().get(0).equals(stop);
+        } else {
+            return false;
+        }
+    }
 }

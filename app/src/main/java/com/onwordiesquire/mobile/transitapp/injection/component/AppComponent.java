@@ -1,6 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.injection.component;
 
-import com.onwordiesquire.mobile.transitapp.MainActivity;
+import com.onwordiesquire.mobile.transitapp.presentation.routeslist.MainActivity;
 import com.onwordiesquire.mobile.transitapp.TransitApp;
 import com.onwordiesquire.mobile.transitapp.injection.modules.AppModule;
 

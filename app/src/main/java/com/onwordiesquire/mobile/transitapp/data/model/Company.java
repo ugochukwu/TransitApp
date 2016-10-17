@@ -10,6 +10,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 @AutoValue
+
 public abstract class Company {
 
     @SerializedName("name")

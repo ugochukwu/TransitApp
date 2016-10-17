@@ -49,4 +49,6 @@ public abstract class Route {
     public static TypeAdapter<Route> typeAdapter(Gson gson) {
         return new AutoValue_Route.GsonTypeAdapter(gson);
     }
+
+
 }

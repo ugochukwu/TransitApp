@@ -17,34 +17,34 @@ public abstract class Stop {
 
     public abstract double lat();
 
-    public  abstract double lng();
+    public abstract double lng();
 
     @SerializedName("datetime")
-    public  abstract String dateTime();
+    public abstract String dateTime();
 
     @Nullable
-    public  abstract Object properties();
+    public abstract Object properties();
 
     @Nullable
-    public  abstract String name();
+    public abstract String name();
 
-    public  static Builder builder() {
+    public static Builder builder() {
         return new AutoValue_Stop.Builder();
     }
 
     @AutoValue.Builder
-    static abstract class Builder {
-        abstract Builder setLng(double lng);
+    public static abstract class Builder {
+        public abstract Builder setLng(double lng);
 
-        abstract Builder setLat(double lat);
+        public abstract Builder setLat(double lat);
 
-        abstract Builder setDateTime(String dateTime);
+        public abstract Builder setDateTime(String dateTime);
 
-        abstract Builder setProperties(Object properties);
+        public abstract Builder setProperties(Object properties);
 
-        abstract Builder setName(String name);
+        public abstract Builder setName(String name);
 
-        abstract Stop build();
+        public abstract Stop build();
     }
 
     //enables the automatic generation of a Gson type adapter for this class
