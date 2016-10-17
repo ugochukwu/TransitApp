@@ -8,7 +8,22 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.onwordiesquire.mobile.transitapp.data.model.Price;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
+import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
+import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,13 +72,64 @@ public abstract class RouteViewModel {
         if (TextUtils.isEmpty(type())) {
             return "Name not available";
         } else {
-            return type();
+            return WordUtils.capitalize(org.apache.commons.lang3.StringUtils.replace(type(), "_", " "));
         }
     }
 
-    // TODO: 10/17/16 finish this by formatting correctly with SDF
     public String getStartTime() {
-        return this.segments().get(0).stops().get(0).dateTime();
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+            String start = this.segments().get(0).stops().get(0).dateTime();
+
+            Date startDateTime = getDateTime(start);
+            return sdf.format(startDateTime);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "N/A";
+        }
+
+
+    }
+
+    public String duration() {
+        String start = this.segments().get(0).stops().get(0).dateTime();
+        Segment segment = this.segments().get(segments().size() - 1);
+        List<Stop> stops = segment.stops();
+        String end = segment.stops().get(stops.size() - 1).dateTime();
+        try {
+            Date startDt = getDateTime(start);
+            Date endDt = getDateTime(end);
+
+           return  String.format("%d mins",Minutes.minutesBetween(new DateTime(startDt), new DateTime(endDt)).getMinutes());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "N/A";
+        }
+    }
+
+    private Date getDateTime(String dateString) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        return sdf.parse(dateString);
+    }
+
+    public String getEndTime() {
+        Segment segment = this.segments().get(segments().size() - 1);
+        List<Stop> stops = segment.stops();
+        String end = segment.stops().get(stops.size() - 1).dateTime();
+        try {
+            Date date = getDateTime(end);
+            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
+            sdf.applyPattern("h:mm a");
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "N/A";
+        }
+
     }
 
     public String getFormattedPrice() {

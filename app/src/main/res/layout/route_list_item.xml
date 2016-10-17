@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/transport_type"
@@ -69,7 +69,7 @@
             android:layout_below="@+id/segments_recycler"
             android:layout_toRightOf="@id/divider"
             tools:text="9:00pm"
-            android:text="9:00pm"
+            android:text="@{route.startTime}"
             />
 
         <ImageView
@@ -90,7 +90,7 @@
             android:layout_below="@id/segments_recycler"
             android:layout_toRightOf="@id/arrow"
             tools:text="11:00pm"
-            android:text="11:00pm"
+            android:text="@{route.endTime}"
             />
 
         <TextView
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/segments_recycler"
-            android:text="40 mins"
+            android:text="@{route.duration()}"
             tools:text="40 mins"
             />
 
