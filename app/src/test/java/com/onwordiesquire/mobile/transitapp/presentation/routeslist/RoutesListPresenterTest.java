@@ -71,7 +71,7 @@ public class RoutesListPresenterTest {
 
         //assert
         verify(mockRoutesListView).showRoutes(routesArgCaptor.capture());
-        assertEquals(9,routesArgCaptor.getValue().size());
+        assertEquals(routes.size(),routesArgCaptor.getValue().size());
     }
 
 }

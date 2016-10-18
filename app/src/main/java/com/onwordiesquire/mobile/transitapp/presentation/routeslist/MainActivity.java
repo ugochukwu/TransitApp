@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        routesListPresenter.detachView();
+    }
+
     private void setupRecycler() {
         routesRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         routesRecycler.setHasFixedSize(true);
