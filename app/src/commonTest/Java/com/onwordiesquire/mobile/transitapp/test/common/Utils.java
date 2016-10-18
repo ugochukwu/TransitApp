@@ -2,6 +2,7 @@ package com.onwordiesquire.mobile.transitapp.test.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.onwordiesquire.mobile.transitapp.data.model.AvailableRoutes;
 import com.onwordiesquire.mobile.transitapp.data.model.ProviderAttributes;
 import com.onwordiesquire.mobile.transitapp.util.ProviderAttributesTypeAdapter;
 import com.onwordiesquire.mobile.transitapp.util.TransitAdapterFactory;
@@ -32,10 +33,16 @@ public class Utils {
         return sb.toString();
     }
 
+
     public static Gson setupGson() {
         return  new GsonBuilder()
                 .registerTypeAdapterFactory(TransitAdapterFactory.create())
                 .registerTypeAdapter(ProviderAttributes.class, new ProviderAttributesTypeAdapter())
                 .create();
+    }
+
+    public static AvailableRoutes getMockRoutes() throws IOException {
+       return setupGson().fromJson(Utils.readJsonFile("data.json"),
+                AvailableRoutes.class);
     }
 }

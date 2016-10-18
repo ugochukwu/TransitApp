@@ -51,8 +51,7 @@ public class TestJsonFile {
     @Test
     public void TestProvidersCorrectlyParsed() throws Exception {
         //act
-        AvailableRoutes routesData = gson.fromJson(Utils.readJsonFile("data.json"),
-                AvailableRoutes.class);
+        AvailableRoutes routesData = Utils.getMockRoutes();
 
         Provider vbb = routesData.providerData().providers().get(0);
 

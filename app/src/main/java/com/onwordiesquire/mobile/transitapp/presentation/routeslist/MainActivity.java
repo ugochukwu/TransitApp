@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
 
     private void setupRecycler() {
         routesRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        routesRecycler.setHasFixedSize(true);
         adapter = new RoutesListAdapter();
         routesRecycler.setAdapter(adapter);
     }

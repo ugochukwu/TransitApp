@@ -7,6 +7,7 @@ import com.google.auto.value.AutoValue;
 import com.onwordiesquire.mobile.transitapp.data.model.Price;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.data.model.Stop;
+import com.onwordiesquire.mobile.transitapp.util.Utilities;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.joda.time.DateTime;
@@ -59,11 +60,14 @@ public abstract class RouteViewModel {
         return price() != null;
     }
 
-    public String getTransportType() {
+    public String getTransportName() {
         if (TextUtils.isEmpty(type())) {
             return "Name not available";
+        } else if (!type().equals("public_transport")) {
+
+            return Utilities.cleanString(provider());
         } else {
-            return WordUtils.capitalize(org.apache.commons.lang3.StringUtils.replace(type(), "_", " "));
+            return Utilities.cleanString(type());
         }
     }
 
@@ -93,7 +97,7 @@ public abstract class RouteViewModel {
             Date startDt = getDateTime(start);
             Date endDt = getDateTime(end);
 
-           return  String.format("%d mins",Minutes.minutesBetween(new DateTime(startDt), new DateTime(endDt)).getMinutes());
+            return String.format("%d mins", Minutes.minutesBetween(new DateTime(startDt), new DateTime(endDt)).getMinutes());
 
         } catch (ParseException e) {
             e.printStackTrace();

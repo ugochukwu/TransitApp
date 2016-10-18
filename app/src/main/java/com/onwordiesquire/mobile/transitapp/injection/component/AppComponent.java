@@ -1,5 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.injection.component;
 
+import com.onwordiesquire.mobile.transitapp.data.DataManager;
 import com.onwordiesquire.mobile.transitapp.presentation.routeslist.MainActivity;
 import com.onwordiesquire.mobile.transitapp.TransitApp;
 import com.onwordiesquire.mobile.transitapp.injection.modules.AppModule;
@@ -15,7 +16,7 @@ import dagger.Component;
 @Singleton
 public interface AppComponent {
     void inject(MainActivity activity);
-
+    DataManager dataManager();
 
     static final class Initializer {
 
