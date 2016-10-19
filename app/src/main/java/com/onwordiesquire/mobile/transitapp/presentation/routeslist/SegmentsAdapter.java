@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onwordiesquire.mobile.transitapp.R;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
+import com.onwordiesquire.mobile.transitapp.util.Utilities;
 
 import org.w3c.dom.Text;
 
@@ -77,7 +78,7 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.Segmen
 
 //            Glide.with(context).load(R.drawable.ic_bus).placeholder(R.drawable.ic_bus).into(segmentIcon);
             //set icon
-            segmentIcon.setImageResource(bindIconResource(segment.iconUrl()));
+            segmentIcon.setImageResource(Utilities.bindIconResource(segment.iconUrl()));
 
             //set name
 
@@ -87,54 +88,8 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.Segmen
             //set background color
             background.setBackgroundColor(color);
 
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                segmentIcon.setImageTintList(ColorStateList.valueOf(color));
-//            }
-
         }
 
-        /**
-         * returns the appropriate resource id based on the provided url
-         *
-         * @param segmentIconURl
-         * @return
-         */
-        private int bindIconResource(String segmentIconURl) {
-            int resID;
-            switch (segmentIconURl) {
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/subway.svg":
-                    resID = R.drawable.ic_subway;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/walking.svg":
-                    resID = R.drawable.ic_walking;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/bus.svg":
-                    resID = R.drawable.ic_bus;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/change.svg":
-                    resID = R.drawable.ic_change;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/driving.svg":
-                    resID = R.drawable.ic_car;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/parking.svg":
-                    resID = R.drawable.ic_park;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/setup.svg":
-                    resID = R.drawable.ic_setup;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/bike_sharing.svg":
-                    resID = R.drawable.ic_bike_sharing;
-                    break;
-                case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/cycling.svg":
-                    resID = R.drawable.ic_cycling;
-                default:
-                    resID = R.drawable.ic_not_available;
 
-            }
-
-            return resID;
-        }
     }
 }

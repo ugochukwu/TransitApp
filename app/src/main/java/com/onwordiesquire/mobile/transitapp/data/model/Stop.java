@@ -1,5 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.data.model;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -13,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by michelonwordi on 10/15/16.
  */
 @AutoValue
-public abstract class Stop {
+public abstract class Stop implements Parcelable{
 
     public abstract double lat();
 
@@ -22,8 +23,8 @@ public abstract class Stop {
     @SerializedName("datetime")
     public abstract String dateTime();
 
-    @Nullable
-    public abstract Object properties();
+//    @Nullable
+//    public abstract Object properties();
 
     @Nullable
     public abstract String name();
@@ -40,7 +41,7 @@ public abstract class Stop {
 
         public abstract Builder setDateTime(String dateTime);
 
-        public abstract Builder setProperties(Object properties);
+//        public abstract Builder setProperties(Object properties);
 
         public abstract Builder setName(String name);
 

@@ -1,5 +1,7 @@
 package com.onwordiesquire.mobile.transitapp.data.model;
 
+import android.os.Parcelable;
+
 import com.google.auto.value.AutoValue;
 
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Created by michelonwordi on 10/15/16.
  */
 @AutoValue
-public abstract class ProviderAttributes {
+public abstract class ProviderAttributes implements Parcelable{
 
     public abstract List<Provider> providers();
 

@@ -1,5 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routeslist;
 
+
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v4.util.ArrayMap;
@@ -9,10 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.onwordiesquire.mobile.transitapp.R;
+
 import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.databinding.RouteListItemBinding;
+
 
 import java.util.List;
 
@@ -26,16 +30,18 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Ro
 
 
     private List<RouteViewModel> data;
-    private ArrayMap<Route,List<Segment>> segmentsData;
+    private ArrayMap<Route, List<Segment>> segmentsData;
     private SegmentsAdapter segmentsAdapter;
+    private OnRouteSelectedListener onRouteSelectedListener;
 
     @Override
     public RoutesItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.route_list_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.route_list_item, parent, false);
         RecyclerView segmentsRecycler = ButterKnife.findById(view, R.id.segments_recycler);
-        segmentsRecycler.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
+        segmentsRecycler.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         segmentsRecycler.setAdapter(new SegmentsAdapter());
+
         return new RoutesItemViewHolder(view);
     }
 
@@ -47,6 +53,10 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Ro
 
     public void setData(List<RouteViewModel> routes) {
         this.data = routes;
+    }
+
+    public void setListener(OnRouteSelectedListener listener) {
+        onRouteSelectedListener = listener;
     }
 
     @Override
@@ -63,15 +73,34 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Ro
             binding = DataBindingUtil.bind(itemView);
         }
 
-        public void bindData(RouteViewModel rvm)
-        {
+        public void bindData(RouteViewModel rvm) {
             //pass view model to databinding code in layout
             binding.setRoute(rvm);
+            binding.card.setOnClickListener(v -> {
+                onRouteSelectedListener.onRouteSelected(Route.builder()
+                        .setPrice(rvm.price())
+                        .setProvider(rvm.provider())
+                        .setSegments(rvm.segments())
+                        .setType(rvm.type())
+                        .build());
+            });
+            binding.segmentsRecycler.setOnClickListener(v -> {
+                onRouteSelectedListener.onRouteSelected(Route.builder()
+                        .setPrice(rvm.price())
+                        .setProvider(rvm.provider())
+                        .setSegments(rvm.segments())
+                        .setType(rvm.type())
+                        .build());
+            });
 
             //assign data to adapter and notify
             SegmentsAdapter adapter = (SegmentsAdapter) binding.segmentsRecycler.getAdapter();
             adapter.setData(rvm.segments());
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public interface OnRouteSelectedListener {
+        public void onRouteSelected(Route route);
     }
 }

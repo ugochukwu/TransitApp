@@ -113,7 +113,6 @@ public class DataManagerTest {
                 .setLat(52.5302356)
                 .setLng(13.4033659)
                 .setDateTime("2015-04-17T12:29:00+01:00")
-                .setProperties(null)
                 .build();
         when(mockJsonRoutesDataSource.getAvailableRoutes()).thenReturn(Observable.just(availableRoutes));
         TestSubscriber<Route> testSubscriber = new TestSubscriber<>();

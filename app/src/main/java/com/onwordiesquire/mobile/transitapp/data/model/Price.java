@@ -1,6 +1,8 @@
 package com.onwordiesquire.mobile.transitapp.data.model;
 
 
+import android.os.Parcelable;
+
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
@@ -10,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by michelonwordi on 10/15/16.
  */
 @AutoValue
-public abstract class Price {
+public abstract class Price implements Parcelable{
 
     @SerializedName("currency")
     public abstract String currency();

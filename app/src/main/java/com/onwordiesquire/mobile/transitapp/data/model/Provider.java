@@ -1,5 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.data.model;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -11,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by michelonwordi on 10/14/16.
  */
 @AutoValue
-public abstract class Provider {
+public abstract class Provider implements Parcelable{
 
     public abstract String providerName();
 

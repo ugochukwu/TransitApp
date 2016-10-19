@@ -603,7 +603,7 @@
     },
     {
       "type":"private_bike",
-      "provider":"google",
+        "provider":"google",
       "segments":[
         {
           "name":"Cycling",

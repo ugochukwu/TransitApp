@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="route"
-            type="com.onwordiesquire.mobile.transitapp.presentation.routeslist.RouteViewModel" />
-
-        <import type="android.view.View" />
-
-    </data>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_route_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.onwordiesquire.mobile.transitapp.presentation.routedetails.RouteDetailsActivity">
 
 
-    <com.onwordiesquire.mobile.transitapp.presentation.routedetails.RouteCardView
-        android:id="@+id/card"
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true"
-        app:contentPadding="8dp"
-        android:clickable="true"
-        android:foreground="?android:selectableItemBackground"
-        >
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/white"
+        android:elevation="4dp"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="162dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
         <RelativeLayout
             android:id="@+id/root"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:layout_margin="8dp"
+            android:minHeight="?actionBarSize"
+            app:layout_collapseMode="pin">
 
             <TextView
                 android:id="@+id/transport_type"
@@ -38,9 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:text="@{route.transportName}"
-                tools:text="Public Transport" />
+                android:layout_marginBottom="4dp"
+                android:text="Public Transport" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/segments_recycler"
@@ -57,9 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/segments_recycler"
-                android:text="@{route.formattedPrice}"
-                android:visibility="@{route.hasPrice()?View.VISIBLE:View.GONE}"
-                tools:text="€ 270" />
+                android:text="€ 270" />
 
             <View
                 android:id="@+id/divider"
@@ -78,8 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/segments_recycler"
                 android:layout_toRightOf="@id/divider"
-                tools:text="9:00pm"
-                android:text="@{route.startTime}" />
+                android:text="9:00pm" />
 
             <ImageView
                 android:id="@+id/arrow"
@@ -98,8 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/segments_recycler"
                 android:layout_toRightOf="@id/arrow"
-                tools:text="11:00pm"
-                android:text="@{route.endTime}" />
+                android:text="11:00pm" />
 
             <TextView
                 android:id="@+id/duration"
@@ -107,11 +105,23 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/segments_recycler"
-                android:text="@{route.duration()}"
-                tools:text="40 mins" />
+                android:text="40 mins" />
 
         </RelativeLayout>
-    </com.onwordiesquire.mobile.transitapp.presentation.routedetails.RouteCardView>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/darker_gray" />
 
-</layout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/timeline_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

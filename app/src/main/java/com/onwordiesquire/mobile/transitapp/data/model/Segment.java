@@ -1,5 +1,6 @@
 package com.onwordiesquire.mobile.transitapp.data.model;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by michelonwordi on 10/15/16.
  */
 @AutoValue
-public abstract class Segment {
+public abstract class Segment implements Parcelable{
 
 
     @Nullable

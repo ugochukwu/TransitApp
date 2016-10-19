@@ -2,6 +2,7 @@ package com.onwordiesquire.mobile.transitapp.presentation.routeslist;
 
 import com.onwordiesquire.mobile.transitapp.data.DataManager;
 import com.onwordiesquire.mobile.transitapp.data.model.Route;
+import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.presentation.BasePresenter;
 
 import javax.inject.Inject;
@@ -60,6 +61,15 @@ public class RoutesListPresenter extends BasePresenter<RoutesListMvpView> {
                             getMvpView().showErrorView();
                         });
         mCompositeSubscription.add(subscribe);
+    }
+
+    public void openRouteDetails(Route route) {
+        checkViewAttached();
+        if (route != null) {
+            getMvpView().showRouteDetail(route);
+        }
+
+
     }
 
     private RouteViewModel convertRouteToViewModel(Route route) {
