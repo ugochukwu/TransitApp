@@ -14,6 +14,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
+import timber.log.Timber;
 
 import static rx.Single.just;
 
@@ -58,7 +59,7 @@ public class RoutesListPresenter extends BasePresenter<RoutesListMvpView> {
                             getMvpView().showRoutes(routes);
                         },
                         e -> {
-                            getMvpView().showErrorView();
+                            Timber.i(e,e.getMessage());
                         });
         mCompositeSubscription.add(subscribe);
     }

@@ -18,18 +18,19 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
         app:cardCornerRadius="2dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
-        app:contentPadding="8dp"
-        android:clickable="true"
-        android:foreground="?android:selectableItemBackground"
-        >
+        app:contentPadding="8dp">
 
         <RelativeLayout
             android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:transitionName="@string/route_trans"
+
             >
 
             <TextView
@@ -78,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/segments_recycler"
                 android:layout_toRightOf="@id/divider"
-                tools:text="9:00pm"
-                android:text="@{route.startTime}" />
+                android:text="@{route.startTime}"
+                tools:text="9:00pm" />
 
             <ImageView
                 android:id="@+id/arrow"
@@ -98,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/segments_recycler"
                 android:layout_toRightOf="@id/arrow"
-                tools:text="11:00pm"
-                android:text="@{route.endTime}" />
+                android:text="@{route.endTime}"
+                tools:text="11:00pm" />
 
             <TextView
                 android:id="@+id/duration"

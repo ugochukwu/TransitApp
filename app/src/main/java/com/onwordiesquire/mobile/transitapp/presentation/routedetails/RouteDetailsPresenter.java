@@ -36,7 +36,6 @@ public class RouteDetailsPresenter extends BasePresenter<RouteDetailsMvpView> {
     }
 
     public void loadPolyines(Route route) {
-        this.route = route;
         Observable.just(route)
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())

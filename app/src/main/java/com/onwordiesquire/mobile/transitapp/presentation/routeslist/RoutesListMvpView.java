@@ -16,7 +16,5 @@ public interface RoutesListMvpView extends MvpView {
 
     public void showRouteDetail(RouteViewModel route);
 
-    void showErrorView();
-
     void showEmptyState();
 }

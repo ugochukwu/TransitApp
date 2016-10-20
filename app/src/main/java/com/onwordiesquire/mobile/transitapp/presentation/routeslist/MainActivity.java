@@ -1,10 +1,13 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routeslist;
 
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.onwordiesquire.mobile.transitapp.R;
 import com.onwordiesquire.mobile.transitapp.TransitApp;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
 
     @BindView(R.id.routes_list)
     RecyclerView routesRecycler;
+    View route_item_layout;
     private RoutesListAdapter adapter;
 
     @Override
@@ -65,21 +69,22 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
     public void showRouteDetail(RouteViewModel route) {
         Intent intent = new Intent(this, RouteDetailsActivity.class);
         intent.putExtra(ROUTE_PAYLOAD, route);
-        startActivity(intent);
+        ActivityOptionsCompat options = ActivityOptionsCompat.
+                makeSceneTransitionAnimation(this, route_item_layout, getResources().getString(R.string.route_trans));
+        startActivity(intent, options.toBundle());
+//        startActivity(intent);
     }
 
-    @Override
-    public void showErrorView() {
 
-    }
 
     @Override
     public void showEmptyState() {
-
+// TODO: 10/20/16 implement empty state view in future
     }
 
     @Override
-    public void onRouteSelected(RouteViewModel route) {
+    public void onRouteSelected(RouteViewModel route,View view) {
+        route_item_layout = view;
         routesListPresenter.openRouteDetails(route);
     }
 }

@@ -38,7 +38,8 @@ public class RoutesListPresenterTest {
 
     @Captor
     ArgumentCaptor<List<RouteViewModel>> routesArgCaptor;
-
+    @Mock
+    DataManager mockDataManager;
     @Mock
     JsonRoutesDataSource mockJsonRoutesDataSource;
     @Mock
@@ -50,8 +51,8 @@ public class RoutesListPresenterTest {
 
     @Before
     public void setup() throws IOException {
-        dataManager = new DataManager(mockJsonRoutesDataSource);
-        routesListPresenter = new RoutesListPresenter(dataManager);
+//        dataManager = new DataManager(mockJsonRoutesDataSource);
+        routesListPresenter = new RoutesListPresenter(mockDataManager);
 
         routesListPresenter.attachView(mockRoutesListView);
 
@@ -64,7 +65,7 @@ public class RoutesListPresenterTest {
     @Test
     public void loadAvailableRoutes() throws Exception {
         //arrange
-        when(mockJsonRoutesDataSource.getAvailableRoutes()).thenReturn(Observable.just(availableRoutes));
+        when(mockDataManager.getAvailableRoutes()).thenReturn(Observable.from(availableRoutes.routes()));
         List<Route> routes =availableRoutes.routes();
         //act
         routesListPresenter.loadAvailableRoutes();

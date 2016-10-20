@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TransitApp</string>
+    <string name="route_trans">route_trans_name</string>
 </resources>

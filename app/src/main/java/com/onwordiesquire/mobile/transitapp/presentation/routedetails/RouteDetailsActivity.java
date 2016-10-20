@@ -126,6 +126,7 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
 
     @Override
     public void showEmptyState() {
+        // TODO: 10/20/16 implement empty state view in future
         Timber.i("Called empty state");
     }
 
@@ -210,7 +211,7 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
         int itemId = item.getItemId();
         switch (itemId) {
             case android.R.id.home:
-                onBackPressed();
+                supportFinishAfterTransition();
                 break;
         }
         return true;

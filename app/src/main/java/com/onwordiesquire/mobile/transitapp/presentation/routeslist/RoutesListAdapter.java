@@ -77,10 +77,7 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Ro
             //pass view model to databinding code in layout
             binding.setRoute(rvm);
             binding.card.setOnClickListener(v -> {
-                onRouteSelectedListener.onRouteSelected(rvm);
-            });
-            binding.segmentsRecycler.setOnClickListener(v -> {
-                onRouteSelectedListener.onRouteSelected(rvm);
+                onRouteSelectedListener.onRouteSelected(rvm,v);
             });
 
             //assign data to adapter and notify
@@ -92,6 +89,6 @@ public class RoutesListAdapter extends RecyclerView.Adapter<RoutesListAdapter.Ro
 
 
     public interface OnRouteSelectedListener {
-        public void onRouteSelected(RouteViewModel route);
+        public void onRouteSelected(RouteViewModel route,View v);
     }
 }
