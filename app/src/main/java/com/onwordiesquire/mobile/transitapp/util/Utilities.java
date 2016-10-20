@@ -41,6 +41,7 @@ public class Utilities {
 
     /**
      * Calculate duration between string start and stop times
+     *
      * @param start
      * @param end
      * @return
@@ -55,6 +56,7 @@ public class Utilities {
 
     /**
      * Convert string into date String into date representation
+     *
      * @param dateString
      * @return
      * @throws ParseException
@@ -100,6 +102,9 @@ public class Utilities {
                 break;
             case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/cycling.svg":
                 resID = R.drawable.ic_cycling;
+                break;
+            case "https://d3m2tfu2xpiope.cloudfront.net/vehicles/taxi.svg":
+                resID = R.drawable.ic_taxii;
                 break;
             default:
                 resID = R.drawable.ic_not_available;

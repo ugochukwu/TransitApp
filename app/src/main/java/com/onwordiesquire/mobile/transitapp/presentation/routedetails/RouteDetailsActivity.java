@@ -1,11 +1,13 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routedetails;
 
 import android.graphics.Color;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -66,6 +68,7 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
     private SegmentsAdapter adapter;
     private TimelineAdapter timelineAdapter;
     private Route route;
+    private ActionBar supportActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,10 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
+        supportActionBar = getSupportActionBar();
+        supportActionBar.setHomeButtonEnabled(true);
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayUseLogoEnabled(true);
     }
 
     private void setupRecycler() {
@@ -195,6 +202,18 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
             this.price.setText(String.format("%s %s", price.currency(), price.amount()));
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
     }
 
     @Override

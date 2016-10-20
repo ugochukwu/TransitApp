@@ -20,11 +20,12 @@ public abstract class Stop implements Parcelable{
 
     public abstract double lng();
 
+    @Nullable
+    @SerializedName("properties")
+    public abstract Properties properties();
+
     @SerializedName("datetime")
     public abstract String dateTime();
-
-//    @Nullable
-//    public abstract Object properties();
 
     @Nullable
     public abstract String name();
@@ -41,7 +42,7 @@ public abstract class Stop implements Parcelable{
 
         public abstract Builder setDateTime(String dateTime);
 
-//        public abstract Builder setProperties(Object properties);
+        public abstract Builder setProperties(Properties properties);
 
         public abstract Builder setName(String name);
 

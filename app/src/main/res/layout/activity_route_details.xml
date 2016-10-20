@@ -41,6 +41,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="4dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:text="Public Transport" />
 
             <android.support.v7.widget.RecyclerView
@@ -57,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:textStyle="bold"
                 android:layout_below="@+id/segments_recycler"
                 tools:text="€ 270" />
 
@@ -103,6 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:layout_below="@id/segments_recycler"
                 tools:text="40 mins" />
 
