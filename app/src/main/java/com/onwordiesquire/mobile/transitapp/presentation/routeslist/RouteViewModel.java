@@ -1,10 +1,12 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routeslist;
 
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.google.auto.value.AutoValue;
 import com.onwordiesquire.mobile.transitapp.data.model.Price;
+import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 import com.onwordiesquire.mobile.transitapp.util.Utilities;
@@ -19,10 +21,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * View Model to aid in presenting necessary route information for the respective view.
+ *
  * Created by michelonwordi on 10/15/16.
  */
 @AutoValue
-public abstract class RouteViewModel {
+public abstract class RouteViewModel implements Parcelable{
 
     @Nullable
     abstract String type();
@@ -73,18 +77,8 @@ public abstract class RouteViewModel {
 
     public String getStartTime() {
 
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
-            String start = this.segments().get(0).stops().get(0).dateTime();
-
-            Date startDateTime = getDateTime(start);
-            return sdf.format(startDateTime);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "N/A";
-        }
-
+        String start = this.segments().get(0).stops().get(0).dateTime();
+        return Utilities.formatTime(start);
 
     }
 
@@ -94,37 +88,33 @@ public abstract class RouteViewModel {
         List<Stop> stops = segment.stops();
         String end = segment.stops().get(stops.size() - 1).dateTime();
         try {
-            Date startDt = getDateTime(start);
-            Date endDt = getDateTime(end);
+            return Utilities.calcDuration(start, end);
 
-            return String.format("%d mins", Minutes.minutesBetween(new DateTime(startDt), new DateTime(endDt)).getMinutes());
-
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return "N/A";
         }
     }
 
-    private Date getDateTime(String dateString) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-
-        return sdf.parse(dateString);
+    public Route getRoute()
+    {
+        return Route.builder()
+                .setPrice(price())
+                .setProvider(provider())
+                .setSegments(segments())
+                .setType(type())
+                .build();
     }
+
+
+
+
 
     public String getEndTime() {
         Segment segment = this.segments().get(segments().size() - 1);
         List<Stop> stops = segment.stops();
         String end = segment.stops().get(stops.size() - 1).dateTime();
-        try {
-            Date date = getDateTime(end);
-            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
-            sdf.applyPattern("h:mm a");
-            return sdf.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "N/A";
-        }
-
+        return Utilities.formatTime(end);
     }
 
     public String getFormattedPrice() {

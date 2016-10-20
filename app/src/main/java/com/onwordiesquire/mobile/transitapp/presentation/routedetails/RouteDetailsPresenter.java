@@ -1,12 +1,10 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routedetails;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 import com.onwordiesquire.mobile.transitapp.presentation.BasePresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,7 +58,7 @@ public class RouteDetailsPresenter extends BasePresenter<RouteDetailsMvpView> {
         checkViewAttached();
         this.route = route;
         if (route != null) {
-            getMvpView().showSegmentsInView(route.segments());
+            getMvpView().showSegmentsInBottomSheet(route.segments());
             getMvpView().drawSegmentsOnMap(route.segments());
         }
     }

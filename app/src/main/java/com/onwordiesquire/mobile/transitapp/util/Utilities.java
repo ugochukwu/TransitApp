@@ -3,6 +3,12 @@ package com.onwordiesquire.mobile.transitapp.util;
 import com.onwordiesquire.mobile.transitapp.R;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by michelonwordi on 10/18/16.
@@ -12,12 +18,51 @@ public class Utilities {
 
     /**
      * Remove underscore from a string and replace with a space
+     *
      * @param name
      * @return
      */
-    public static String cleanString(String name)
-    {
-       return WordUtils.capitalize(org.apache.commons.lang3.StringUtils.replace(name, "_", " "));
+    public static String cleanString(String name) {
+        return WordUtils.capitalize(org.apache.commons.lang3.StringUtils.replace(name, "_", " "));
+    }
+
+    public static String formatTime(String dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            Date date = sdf.parse(dateString);
+            sdf.applyPattern("h:mm a");
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "N/A";
+        }
+
+    }
+
+    /**
+     * Calculate duration between string start and stop times
+     * @param start
+     * @param end
+     * @return
+     * @throws ParseException
+     */
+    public static String calcDuration(String start, String end) throws ParseException {
+        Date startDt = getDateTime(start);
+        Date endDt = getDateTime(end);
+
+        return String.format("%d mins", Minutes.minutesBetween(new DateTime(startDt), new DateTime(endDt)).getMinutes());
+    }
+
+    /**
+     * Convert string into date String into date representation
+     * @param dateString
+     * @return
+     * @throws ParseException
+     */
+    public static Date getDateTime(String dateString) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+        return sdf.parse(dateString);
     }
 
     /**

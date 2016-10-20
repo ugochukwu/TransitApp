@@ -25,7 +25,7 @@ public abstract class AvailableRoutes implements Parcelable{
     }
 
     @AutoValue.Builder
-    static abstract class Builder {
+   public static abstract class Builder {
         abstract Builder setRoutes(List<Route> routes);
 
         abstract Builder setProviderData(ProviderAttributes providers);

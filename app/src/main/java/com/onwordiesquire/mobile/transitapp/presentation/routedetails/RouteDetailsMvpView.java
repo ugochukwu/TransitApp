@@ -20,5 +20,5 @@ public interface RouteDetailsMvpView extends MvpView {
 
     void centerMap(Stop first,Stop last);
 
-    void showSegmentsInView(List<Segment> segments);
+    void showSegmentsInBottomSheet(List<Segment> segments);
 }

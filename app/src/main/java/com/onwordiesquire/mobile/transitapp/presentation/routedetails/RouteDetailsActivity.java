@@ -1,12 +1,12 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routedetails;
 
 import android.graphics.Color;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,11 +20,15 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.android.PolyUtil;
 import com.onwordiesquire.mobile.transitapp.R;
 import com.onwordiesquire.mobile.transitapp.TransitApp;
+import com.onwordiesquire.mobile.transitapp.data.model.Price;
 import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
 import com.onwordiesquire.mobile.transitapp.data.model.Stop;
+import com.onwordiesquire.mobile.transitapp.presentation.routeslist.RouteViewModel;
 import com.onwordiesquire.mobile.transitapp.presentation.routeslist.SegmentsAdapter;
+import com.onwordiesquire.mobile.transitapp.util.Utilities;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -45,11 +49,23 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
     RecyclerView segmentRecycler;
     @BindView(R.id.timeline_recycler)
     RecyclerView timelineRecycler;
+    @BindView(R.id.price)
+    TextView price;
+    @BindView(R.id.start_time)
+    TextView startTime;
+    @BindView(R.id.end_time)
+    TextView endTime;
+    @BindView(R.id.duration)
+    TextView duration;
+    @BindView(R.id.transport_type)
+    TextView transportType;
+
     private SupportMapFragment mapFragment;
     private GoogleMap map;
-    private Route route;
+    private RouteViewModel rvm;
     private SegmentsAdapter adapter;
     private TimelineAdapter timelineAdapter;
+    private Route route;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +74,9 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
         TransitApp.appComponent().inject(this);
         ButterKnife.bind(this);
         setupRecycler();
-        route = (Route) getIntent().getParcelableExtra(ROUTE_PAYLOAD);
+        rvm = (RouteViewModel) getIntent().getParcelableExtra(ROUTE_PAYLOAD);
 
+        route = rvm.getRoute();
 
         rdPresenter.attachView(this);
         rdPresenter.loadPolyines(route);
@@ -153,12 +170,30 @@ public class RouteDetailsActivity extends AppCompatActivity implements RouteDeta
     }
 
     @Override
-    public void showSegmentsInView(List<Segment> segments) {
+    public void showSegmentsInBottomSheet(List<Segment> segments) {
         adapter.setData(segments);
         adapter.notifyDataSetChanged();
 
         timelineAdapter.setData(segments);
         timelineAdapter.notifyDataSetChanged();
+
+        //set transport type
+        transportType.setText(rvm.getTransportName());
+
+        //set the start time
+        startTime.setText(rvm.getStartTime());
+
+        // set the end time
+        endTime.setText(rvm.getEndTime());
+
+        //calculate and set the duration
+        duration.setText(rvm.duration());
+
+
+        Price price = rvm.price();
+        if (price != null) {
+            this.price.setText(String.format("%s %s", price.currency(), price.amount()));
+        }
 
     }
 

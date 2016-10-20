@@ -2,36 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:layout_height="64dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="12dp"
-    android:layout_height="64dp">
+    android:orientation="horizontal">
+
     <TextView
-        android:id="@+id/stop_date"
+        android:id="@+id/stop_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="15:05"
         android:layout_marginRight="8dp"
-        />
+        tools:text="15:05" />
+
     <com.vipul.hp_hp.timelineview.TimelineView
         android:id="@+id/time_marker"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:marker_size="25dp"
+        app:line="@color/colorPrimary"
         app:line_size="2dp"
-        app:markerInCenter="false"
         app:marker="@drawable/ic_bus"
-        app:line="@color/colorPrimary"/>
+        app:markerInCenter="false"
+        app:marker_size="25dp" />
+
     <LinearLayout
-        android:layout_marginLeft="8dp"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp">
+
         <TextView
             android:id="@+id/stop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Torstrasse, Berlin, Germany"/>
+            tools:text="Torstrasse, Berlin, Germany" />
 
     </LinearLayout>
 </LinearLayout>

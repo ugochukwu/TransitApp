@@ -63,7 +63,7 @@ public class RoutesListPresenter extends BasePresenter<RoutesListMvpView> {
         mCompositeSubscription.add(subscribe);
     }
 
-    public void openRouteDetails(Route route) {
+    public void openRouteDetails(RouteViewModel route) {
         checkViewAttached();
         if (route != null) {
             getMvpView().showRouteDetail(route);

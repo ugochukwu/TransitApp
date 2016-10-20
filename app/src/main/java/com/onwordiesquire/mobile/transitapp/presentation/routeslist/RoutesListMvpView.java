@@ -1,6 +1,5 @@
 package com.onwordiesquire.mobile.transitapp.presentation.routeslist;
 
-import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.presentation.MvpView;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public interface RoutesListMvpView extends MvpView {
 
     public void showRoutes(List<RouteViewModel> routes);
 
-    public void showRouteDetail(Route route);
+    public void showRouteDetail(RouteViewModel route);
 
     void showErrorView();
 

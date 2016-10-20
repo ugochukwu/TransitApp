@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 
 import com.onwordiesquire.mobile.transitapp.R;
 import com.onwordiesquire.mobile.transitapp.TransitApp;
-import com.onwordiesquire.mobile.transitapp.data.DataManager;
 import com.onwordiesquire.mobile.transitapp.data.model.Route;
 import com.onwordiesquire.mobile.transitapp.presentation.routedetails.RouteDetailsActivity;
 
@@ -18,9 +17,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements RoutesListMvpView, RoutesListAdapter.OnRouteSelectedListener {
 
@@ -66,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
     }
 
     @Override
-    public void showRouteDetail(Route route) {
+    public void showRouteDetail(RouteViewModel route) {
         Intent intent = new Intent(this, RouteDetailsActivity.class);
         intent.putExtra(ROUTE_PAYLOAD, route);
         startActivity(intent);
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements RoutesListMvpView
     }
 
     @Override
-    public void onRouteSelected(Route route) {
+    public void onRouteSelected(RouteViewModel route) {
         routesListPresenter.openRouteDetails(route);
     }
 }

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.onwordiesquire.mobile.transitapp.R;
 import com.onwordiesquire.mobile.transitapp.data.model.Segment;
+import com.onwordiesquire.mobile.transitapp.data.model.Stop;
 import com.onwordiesquire.mobile.transitapp.util.Utilities;
 
 import org.w3c.dom.Text;
@@ -76,7 +77,6 @@ public class SegmentsAdapter extends RecyclerView.Adapter<SegmentsAdapter.Segmen
             Context context = segmentIcon.getContext();
             this.segment = segment;
 
-//            Glide.with(context).load(R.drawable.ic_bus).placeholder(R.drawable.ic_bus).into(segmentIcon);
             //set icon
             segmentIcon.setImageResource(Utilities.bindIconResource(segment.iconUrl()));
 
